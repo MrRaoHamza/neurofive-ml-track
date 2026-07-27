@@ -1,113 +1,122 @@
-# Neurofive ML Track - Task 1: Titanic EDA & Environment Setup
+# Neurofive ML Track - Titanic EDA & Visual Data Storytelling (Task 1 & Task 2)
 
-Welcome to **Task 1** of the **Neurofive ML Track**! Before jumping into machine learning algorithms, this project establishes a clean Python data science environment and performs a detailed Exploratory Data Analysis (EDA) on the classic Kaggle Titanic dataset.
+Welcome to the **Neurofive ML Track** repository! This project covers **Task 1** (Environment Setup & Baseline EDA) and **Task 2** (Data Cleaning, Outlier Detection, Visual Data Storytelling, and Feature Importance Analysis) using the classic Titanic dataset.
 
 ---
 
 ## 📌 Project Overview
-The primary goal of this initial task is to practice "listening" to a raw dataset before performing any modeling. We inspect the Titanic dataset's structure, statistical distributions, data types, and missing values to craft a baseline **Data Story**.
-
-### Key Deliverables:
-1. Python environment setup with `pandas`, `numpy`, and `jupyter`.
-2. Titanic dataset download and ingestion.
-3. Notebook (`eda_titanic.ipynb`) inspection using `df.head()`, `df.info()`, and `df.describe()`.
-4. Analysis of missing values and categorization of feature types (Numerical vs. Categorical).
-5. A concise **Data Story** summarizing initial data insights.
-6. GitHub submission structure & video walkthrough guide for LinkedIn.
+- **Task 1:** Inspect raw dataset structure (`df.head()`, `df.info()`, `df.describe()`), missingness overview, and feature categorization.
+- **Task 2:** Clean missing values with formal statistical justifications, detect numerical outliers via IQR and boxplots, build 4 distinct visualizations using `seaborn` and `matplotlib`, answer the core survival driver question, and prepare a public project release.
 
 ---
 
 ## 📁 Repository Structure
 ```
 neurofive-ml-track/
-├── eda_titanic.ipynb     # Main Jupyter Notebook containing EDA & Data Story
-├── titanic.csv           # Titanic dataset (891 rows x 12 columns)
-├── build_eda.py          # Python script to programmatically build notebook
-├── README.md             # Project documentation & track guide
-└── .gitignore            # Git ignore rules for Python/Jupyter workspace
+├── eda_titanic.ipynb              # Main Jupyter Notebook (Tasks 1 & 2 combined)
+├── titanic.csv                    # Kaggle Titanic Dataset (891 rows x 12 columns)
+├── build_eda.py                   # Python script generating notebook & visualizations
+├── visualizations/                # Generated high-resolution plots (.png)
+│   ├── plot1_age_histogram.png
+│   ├── plot2_fare_boxplot.png
+│   ├── plot3_survival_barchart.png
+│   └── plot4_correlation_heatmap.png
+├── README.md                      # Complete project documentation
+└── .gitignore                     # Git ignore rules for Python/Jupyter
 ```
 
 ---
 
-## 🛠️ Environment Setup & Quickstart
+## 🧹 Data Cleaning Strategy & Justifications (`fillna()` vs `dropna()`)
 
-### Prerequisites
-- Python 3.8 or higher installed on your system.
+Real-world datasets contain missing entries. Dropping rows blindly distorts sample sizes, while improper filling introduces bias.
 
-### 1. Clone & Navigate
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/neurofive-ml-track.git
-cd neurofive-ml-track
-```
-
-### 2. Install Required Libraries
-Install the core data science toolkit:
-```bash
-pip install pandas numpy jupyter matplotlib seaborn
-```
-
-### 3. Launch Jupyter Notebook
-```bash
-jupyter notebook eda_titanic.ipynb
-```
-*(Alternatively, open `eda_titanic.ipynb` in VS Code or Google Colab).*
+| Feature | Missing Count | Missing % | Cleaning Strategy | Justification |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Age`** | 177 | 19.87% | **`fillna(median)`** | `dropna()` would discard 20% of sample data. `Age` is right-skewed; median (~28.0 yrs) preserves sample size without being pulled by elderly outliers. |
+| **`Embarked`** | 2 | 0.22% | **`fillna(mode)`** | Only 2 rows are missing. Imputing with the mode (`'S'`) restores complete cases with zero statistical bias. |
+| **`Cabin`** | 687 | 77.10% | **`fillna('Unknown')` + `Cabin_Known`** | Over 77% missing. `dropna()` would destroy the dataset. We replace missing values with `'Unknown'` and construct a binary indicator (`Cabin_Known = 1/0`) to capture the structural signal of recording cabin data. |
 
 ---
 
-## 📊 Exploratory Data Analysis (EDA) Summary
+## 🔍 Outlier Detection (Interquartile Range - IQR Analysis)
 
-### Dataset Metrics:
-- **Total Rows (Observations):** 891
-- **Total Columns (Features):** 12
+Using `sns.boxplot` on `Fare` across `Pclass`, we identified significant extreme value outliers:
+- **First Quartile (Q1):** $7.91 | **Third Quartile (Q3):** $31.00 | **IQR:** $23.09
+- **Upper Outlier Cutoff ($Q3 + 1.5 \times IQR$):** **$65.63**
+- **Total Fare Outliers Detected:** **116 passengers** (13.02% of sample)
+- **Maximum Fare Recorded:** **$512.33** (Paid by elite 1st Class passengers in luxury suites)
 
-### Feature Classification:
-- **Numerical Features (7):** `PassengerId`, `Survived`, `Pclass`, `Age`, `SibSp`, `Parch`, `Fare`
-- **Categorical Features (5):** `Name`, `Sex`, `Ticket`, `Cabin`, `Embarked`
-
-### Missing Values Identified:
-- `Cabin`: **687 missing** (~77.10% missing rate)
-- `Age`: **177 missing** (~19.87% missing rate)
-- `Embarked`: **2 missing** (~0.22% missing rate)
+*Insight:* Extreme `Fare` outliers reflect genuine luxury accommodations (e.g. Cardeza & Widener suites) rather than measurement errors.
 
 ---
 
-## 📖 Data Story (5-6 Line Summary)
+## 🎨 4 Key Visualizations (`matplotlib` & `seaborn`)
 
-> The Titanic dataset contains **891 rows** and **12 columns**, capturing passenger demographics, ticket details, and survival outcomes. Numerical features include `Age`, `Fare`, `SibSp`, `Parch`, `PassengerId`, `Pclass`, and `Survived`, while `Name`, `Sex`, `Ticket`, `Cabin`, and `Embarked` form the categorical attributes. Significant data missingness is observed in `Cabin` (77.10%) and `Age` (19.87%), alongside 2 missing records in `Embarked`. Overall passenger survival rate stands at ~38.38%, with passenger ages ranging from 0.42 to 80 years old (mean age ~29.7 years). Due to high missingness, `Cabin` will likely require indicator encoding or removal, whereas `Age` will require feature imputation prior to predictive modeling.
+### 1. Histogram: Age Distribution by Survival Outcome
+![Age Histogram](visualizations/plot1_age_histogram.png)
+*Highlights child survival priority (<10 years old) and high mortality among young adults (20-30 years).*
 
 ---
 
-## 🚀 How to Push to GitHub (`neurofive-ml-track`)
+### 2. Boxplot: Fare Distribution & Outlier Detection
+![Fare Boxplot](visualizations/plot2_fare_boxplot.png)
+*Illustrates ticket price variance across classes and extreme fare outliers in 1st Class.*
 
-Follow these commands to create and push your public repository:
+---
+
+### 3. Bar Chart: Survival Rate by Gender & Passenger Class
+![Survival Rate Bar Chart](visualizations/plot3_survival_barchart.png)
+*Shows near-certain survival for 1st/2nd Class females (96.8% & 92.1%) vs stark 3rd Class male mortality (13.5%).*
+
+---
+
+### 4. Correlation Matrix Heatmap
+![Correlation Heatmap](visualizations/plot4_correlation_heatmap.png)
+*Quantifies relationship strengths: `Sex_Numeric` (+0.54) and `Pclass` (-0.34) exhibit strongest correlations with `Survived`.*
+
+---
+
+## ❓ Feature Importance Analysis
+
+### **Question: Which feature do you think most affects survival, and why?**
+
+### 💡 **Answer:**
+**`Sex` (Gender)** is the single most decisive feature affecting survival, followed closely by **`Pclass` (Passenger Class)**.
+
+#### **Why? (Empirical & Historical Evidence):**
+1. **Gender Priority (`Sex`):** Females achieved a **74.2%** overall survival rate, whereas males recorded only **18.9%**. This was driven by the strict enforcement of the historical maritime evacuation protocol: **"Women and children first"**.
+2. **Socioeconomic Advantage (`Pclass`):** First-class passengers achieved a **62.9%** survival rate versus **24.2%** for 3rd class. First-class cabins were situated on the upper decks adjacent to lifeboat launch stations, giving them physical proximity and priority access.
+3. **Compound Effect:** 1st-class females achieved a **96.8%** survival rate, while 3rd-class males suffered an **86.5% mortality rate**.
+
+---
+
+## 🚀 How to Commit & Push to GitHub
+
+To push Task 2 updates to your repository:
 
 ```bash
-# 1. Initialize git inside this folder
-git init
+# 1. Check workspace status
+git status
 
-# 2. Add files and make initial commit
+# 2. Stage updated notebook, script, README, and visualizations
 git add .
-git commit -m "feat: complete Titanic EDA and data story for Task 1"
 
-# 3. Rename branch to main
-git branch -M main
+# 3. Commit with a descriptive commit message
+git commit -m "feat: complete data cleaning, outlier detection, 4 visualizations, and feature analysis for Task 2"
 
-# 4. Add your public GitHub remote repository
-git remote add origin https://github.com/YOUR_GITHUB_USERNAME/neurofive-ml-track.git
-
-# 5. Push code
-git push -u origin main
+# 4. Push to remote main branch
+git push origin main
 ```
 
 ---
 
-## 🎥 LinkedIn Presentation Video Walkthrough Guide
+## 🎥 LinkedIn Video Walkthrough Guide (Task 2)
 
-As part of the Neurofive ML Track requirement, record a **2-3 minute screen recording** explaining your notebook:
+Record a **2–3 minute video** highlighting your findings:
 
-1. **Introduction (15s):** Introduce yourself, state your participation in the **Neurofive ML Track**, and mention Task 1.
-2. **Environment & Dataset Ingestion (30s):** Show `pandas` and `numpy` imports and loading `titanic.csv` into a dataframe.
-3. **Inspection (`.head()`, `.info()`, `.describe()`) (45s):** Scroll through the output of these functions, pointing out the 891 rows and 12 columns.
-4. **Missing Values & Feature Types (45s):** Highlight the missing values in `Cabin` (77.1%) and `Age` (19.87%) and distinguish categorical vs numerical columns.
-5. **Data Story & Conclusion (30s):** Read through your 5-6 line Data Story summary cell and outline next steps for feature engineering.
-6. **Posting:** Post your video on LinkedIn and tag **@Neurofive Solutions**!
+1. **Introduction (15s):** Introduce yourself and announce **Task 2** of the **Neurofive ML Track**.
+2. **Data Cleaning Choices (30s):** Explain why median imputation was selected for `Age` (avoiding data loss) and how `Cabin` missingness was turned into a binary feature.
+3. **Surprising Visualization (60s):** Feature the **Survival Rate by Gender & Class Bar Chart** or **Fare Boxplot Outliers**. Explain what surprised you (e.g. 96.8% survival for 1st-class females vs 13.5% for 3rd-class males).
+4. **Feature Importance Answer (30s):** Summarize why `Sex` and `Pclass` governed survival rates ("women and children first" protocol + upper deck access).
+5. **Call to Action:** Post on LinkedIn tagging **@Neurofive Solutions**!
