@@ -1,16 +1,17 @@
 # 🚢 Neurofive Machine Learning Track
 
-Welcome to the **Neurofive ML Track** repository maintained by **Rao Hamza Irshad**. This project demonstrates end-to-end Exploratory Data Analysis (EDA), missing value handling with statistical justifications, outlier detection, data storytelling, feature engineering, and your very first **Classification Machine Learning Model (Logistic Regression)** predicting Titanic passenger survival.
+Welcome to the official **Neurofive ML Track** repository maintained by **Rao Hamza Irshad**. This repository showcases complete, modular tasks covering Exploratory Data Analysis (EDA), Statistical Data Cleaning, Data Storytelling, **Linear Regression (Continuous Price Prediction)**, and **Logistic Regression (Binary Classification)**.
 
 ---
 
-## 📌 Submission Matrix (Task-Wise Links)
+## 📌 Task Submission Matrix (Task-Wise Links)
 
-| Track Task | Task Scope & Description | Direct Notebook Link |
-| :--- | :--- | :--- |
-| **Task 01** | **Baseline EDA & Setup:** Python environment setup, raw data ingestion, structural inspection (`.info()`, `.describe()`, `.head()`), feature classification (Numerical vs. Categorical), and executive Data Story. | 🔗 [**Task 1 Notebook**](tasks/Task-01-Baseline-EDA/Task_01_Titanic_EDA.ipynb) |
-| **Task 02** | **Data Cleaning & Visual Storytelling:** Statistical missing value imputation (`fillna`), IQR outlier analysis, 4 Seaborn/Matplotlib visualizations, and formal survival driver analysis. | 🔗 [**Task 2 Notebook**](tasks/Task-02-Cleaning-and-Visualization/Task_02_Data_Cleaning_Visualizations.ipynb) |
-| **Task 03** | **Machine Learning Classifier:** Categorical one-hot encoding, train-test split (`train_test_split`), **Logistic Regression** training, `accuracy_score` evaluation (**80.45%**), and Confusion Matrix interpretation. | 🔗 [**Task 3 Notebook**](tasks/Task-03-Logistic-Regression-Model/Task_03_Logistic_Regression.ipynb) |
+| Track Task | Task Scope & Model Type | Key Deliverables & Performance | Direct Notebook Link |
+| :--- | :--- | :--- | :--- |
+| **Task 01** | **Baseline EDA & Setup** *(Exploratory Data Analysis)* | Structural inspection (`.info()`, `.describe()`, `.head()`), feature classification, 6-line executive Data Story. | 🔗 [**Task 1 Notebook**](tasks/Task-01-Baseline-EDA/Task_01_Titanic_EDA.ipynb) |
+| **Task 02** | **Data Cleaning & Visual Storytelling** *(EDA & Visualization)* | Statistical `fillna()` justifications, IQR Outlier Detection, 4 Seaborn plots, written feature survival analysis. | 🔗 [**Task 2 Notebook**](tasks/Task-02-Cleaning-and-Visualization/Task_02_Data_Cleaning_Visualizations.ipynb) |
+| **Task 03** | **Linear Regression Model** *(Regression - Housing Prices)* | Predict house values using 4 features (`MedInc`, `AveRooms`, `Latitude`, `Longitude`). **RMSE = $74,858.88**, **$R^2$ = 57.24%**, Scatter Plot, Plain English $R^2$ note. | 🔗 [**Task 3 Notebook**](tasks/Task-03-Linear-Regression-House-Prices/Task_03_Linear_Regression.ipynb) |
+| **Task 04** | **Logistic Regression Model** *(Classification - Survival)* | Categorical One-Hot Encoding (`pd.get_dummies`), 80/20 train-test split, **Accuracy = 80.45%**, Confusion Matrix breakdown. | 🔗 [**Task 4 Notebook**](tasks/Task-04-Logistic-Regression-Titanic/Task_04_Logistic_Regression.ipynb) |
 
 ---
 
@@ -21,24 +22,29 @@ neurofive-ml-track/
 │
 ├── tasks/                                            # Modular Task Directory
 │   ├── Task-01-Baseline-EDA/
-│   │   └── Task_01_Titanic_EDA.ipynb                 # Task 1 Notebook
+│   │   └── Task_01_Titanic_EDA.ipynb                 # Task 1 Notebook (Titanic EDA)
 │   ├── Task-02-Cleaning-and-Visualization/
-│   │   └── Task_02_Data_Cleaning_Visualizations.ipynb# Task 2 Notebook
-│   └── Task-03-Logistic-Regression-Model/
-│       └── Task_03_Logistic_Regression.ipynb         # Task 3 Notebook
+│   │   └── Task_02_Data_Cleaning_Visualizations.ipynb# Task 2 Notebook (Titanic Cleaning)
+│   ├── Task-03-Linear-Regression-House-Prices/
+│   │   └── Task_03_Linear_Regression.ipynb           # Task 3 Notebook (Linear Regression)
+│   └── Task-04-Logistic-Regression-Titanic/
+│       └── Task_04_Logistic_Regression.ipynb         # Task 4 Notebook (Logistic Regression)
 │
-├── data/                                             # Raw & Processed Datasets
-│   └── titanic.csv                                   # Titanic Dataset (891 rows x 12 columns)
+├── data/                                             # Raw Datasets
+│   ├── titanic.csv                                   # Titanic Dataset (891 rows x 12 columns)
+│   └── california_housing.csv                        # California Housing Dataset (20,640 rows)
 │
 ├── assets/                                           # High-Resolution Visualization Assets
 │   ├── age_distribution_histogram.png                # Histogram: Age vs Survival
 │   ├── fare_outliers_boxplot.png                     # Boxplot: Fare Outliers & Class
 │   ├── survival_rate_barchart.png                    # Bar Chart: Gender & Class Survival
 │   ├── correlation_heatmap.png                       # Heatmap: Feature Correlation Matrix
-│   └── confusion_matrix.png                          # Confusion Matrix Heatmap (Task 3)
+│   ├── predicted_vs_actual_housing.png               # Scatter Plot: Predicted vs Actual Prices
+│   └── confusion_matrix.png                          # Heatmap: Confusion Matrix (Task 4)
 │
 ├── src/                                              # Reusable Code & Build Pipeline
-│   └── generate_notebooks.py                         # Automation script for workspace builds
+│   ├── generate_notebooks.py                         # Complete 4-task build pipeline
+│   └── generate_task3.py                             # Task 3 pipeline script
 │
 ├── requirements.txt                                  # Project Dependencies (scikit-learn, etc.)
 ├── README.md                                         # Executive Repository Documentation
@@ -63,96 +69,62 @@ cd neurofive-ml-track
 pip install -r requirements.txt
 ```
 
-### 3. Run Notebooks
+### 3. Run Task Notebooks
 ```bash
-jupyter notebook tasks/Task-03-Logistic-Regression-Model/Task_03_Logistic_Regression.ipynb
+jupyter notebook tasks/Task-03-Linear-Regression-House-Prices/Task_03_Linear_Regression.ipynb
+jupyter notebook tasks/Task-04-Logistic-Regression-Titanic/Task_04_Logistic_Regression.ipynb
 ```
 
 ---
 
-## 📊 Task 01: Baseline EDA & Executive Data Story
-
-### Dataset Metrics:
-- **Dimensions:** 891 rows × 12 columns
-- **Numerical Features (7):** `PassengerId`, `Survived`, `Pclass`, `Age`, `SibSp`, `Parch`, `Fare`
-- **Categorical Features (5):** `Name`, `Sex`, `Ticket`, `Cabin`, `Embarked`
-
-### 📖 Executive Data Story:
-> The Titanic dataset contains **891 rows** and **12 columns**, capturing passenger demographics, ticket details, and survival outcomes. Numerical features include `Age`, `Fare`, `SibSp`, `Parch`, `PassengerId`, `Pclass`, and `Survived`, while `Name`, `Sex`, `Ticket`, `Cabin`, and `Embarked` form the categorical attributes. Significant missing values exist in `Cabin` (77.10%) and `Age` (19.87%), with `Embarked` missing just 2 records. Key metrics reveal an overall survival rate of ~38.38% with passenger ages ranging from 0.42 to 80 years old (mean age ~29.7 years). The heavy missingness in `Cabin` suggests it may require indicator encoding, while `Age` will require median imputation prior to predictive modeling.
-
----
-
-## 🧹 Task 02: Data Cleaning & Justifications (`fillna()` vs `dropna()`)
-
-| Feature | Missing Count | Missing % | Cleaning Strategy | Formal Statistical Justification |
-| :--- | :--- | :--- | :--- | :--- |
-| **`Age`** | 177 | 19.87% | **`fillna(median)`** | `dropna()` would discard 20% of sample data. `Age` is right-skewed; median (~28.0 yrs) preserves sample size without being distorted by elderly outliers. |
-| **`Embarked`** | 2 | 0.22% | **`fillna(mode)`** | Only 2 rows are missing. Imputing with the mode (`'S'`) restores complete cases with zero statistical bias. |
-| **`Cabin`** | 687 | 77.10% | **`fillna('Unknown')` + `Cabin_Known`** | Over 77% missing. `dropna()` would destroy the dataset. We replace missing values with `'Unknown'` and construct a binary indicator (`Cabin_Known = 1/0`) to preserve the structural signal. |
-
----
-
-## 🎨 Task 02: Visual Data Storytelling & Outlier Analysis
-
-- **Outlier Cutoff (`Fare`):** **$65.63** ($Q3 + 1.5 \times IQR$). Identified 116 high-fare luxury suite outliers up to $512.33.
-- **Key Survival Drivers:** `Sex` (Female survival **74.2%** vs Male survival **18.9%**) and `Pclass` (1st Class survival **62.9%** vs 3rd Class **24.2%**).
-
----
-
-## 🤖 Task 03: Machine Learning Model (Logistic Regression)
+## 📈 Task 03: Linear Regression Model (House Price Prediction)
 
 ### 🛠️ Modeling Pipeline Overview
-1. **Categorical Encoding:** Converted categorical features (`Sex`, `Embarked`, `Pclass`) into numerical binary indicator columns using One-Hot Encoding (`pd.get_dummies(drop_first=True)`).
-2. **Train-Test Split:** Split the dataset into **80% Training ($X_{train}, y_{train}$ - 712 samples)** and **20% Testing ($X_{test}, y_{test}$ - 179 samples)** using `train_test_split(test_size=0.2, random_state=42, stratify=y)` to preserve target class balance.
-3. **Model Fitting:** Trained a `LogisticRegression(max_iter=1000)` classification model on the training set.
+1. **Dataset Ingestion:** California Housing Dataset (`20,640` records).
+2. **Predictor Selection (4 Features):** Selected `MedInc` (Median Neighborhood Income), `AveRooms` (Average Room Count), `Latitude`, and `Longitude`.
+3. **Target Variable:** `MedHouseVal` (Median house value in $100,000s).
+4. **Train-Test Split:** 80% Training (16,512 samples) / 20% Testing (4,128 samples) with `random_state=42`.
+5. **Model:** Scikit-Learn `LinearRegression()`.
 
 ---
 
-### 📈 Model Performance & Results
+### 📊 Performance Metrics
 
-- **Overall Test Set Accuracy:** **80.45%** (`accuracy_score = 0.8045`)
-- **Correct Predictions:** **144 out of 179** unseen test samples correctly classified.
+- **$R^2$ Score:** **0.5724** (**57.24%** of house price variance explained).
+- **Root Mean Squared Error (RMSE):** **0.7486** ($100,000 units), representing a typical estimation error of **$74,858.88**.
 
-### 🖼️ Confusion Matrix Visualization
+---
+
+### 🖼️ Predicted vs. Actual Prices Scatter Plot
+![Predicted vs Actual Prices](assets/predicted_vs_actual_housing.png)
+
+---
+
+### 💡 Plain English $R^2$ Explanation for Non-Technical Stakeholders
+
+> Imagine trying to estimate the market price of a house before it goes up for sale. The **$R^2$ score (57.24%)** measures how much of the real-world variation in home prices our model can explain using basic neighborhood information like median income, room counts, and geographic location.
+>
+> Specifically, an **$R^2$ score of 0.57** means our model successfully accounts for **57.24%** of why home prices differ across neighborhoods. The remaining **42.76%** of price variation comes from unobserved factors outside our dataset, such as interior renovations, school district ratings, or recent market bidding wars.
+>
+> In practical business terms, our model provides a solid baseline automated valuation tool that estimates home prices within a typical margin of error (RMSE) of **$74,858.88**.
+
+---
+
+## 🤖 Task 04: Logistic Regression Model (Titanic Survival Classifier)
+
+- **Test Accuracy:** **80.45%** ($144 / 179$ correct predictions).
+- **Confusion Matrix:** $TN = 97$, $TP = 47$, $FP = 13$, $FN = 22$.
+- **Precision for Survivors:** **78.33%** | **Recall for Survivors:** **68.12%**.
+
 ![Confusion Matrix](assets/confusion_matrix.png)
-
----
-
-### 📊 Confusion Matrix Analytical Breakdown & Explanation
-
-The Confusion Matrix evaluates the performance of a binary classifier by comparing actual ground truth labels against model predictions:
-
-| Actual \ Predicted | Predicted: Did Not Survive (0) | Predicted: Survived (1) | Total |
-| :--- | :---: | :---: | :---: |
-| **Actual: Did Not Survive (0)** | **True Negative ($TN$): 97** | **False Positive ($FP$): 13** | 110 |
-| **Actual: Survived (1)** | **False Negative ($FN$): 22** | **True Positive ($TP$): 47** | 69 |
-| **Total** | 119 | 60 | 179 |
-
-#### **Written Analysis of Matrix Components:**
-- **True Negatives ($TN = 97$):** The model correctly identified 97 passengers who actually **did not survive**.
-- **True Positives ($TP = 47$):** The model correctly identified 47 passengers who actually **survived**.
-- **False Positives ($FP = 13$, Type I Error):** The model incorrectly predicted that 13 non-surviving passengers survived.
-- **False Negatives ($FN = 22$, Type II Error):** The model incorrectly predicted that 22 surviving passengers did not survive.
-
-#### **Key Classification Metrics:**
-- **Precision for Survivors (Class 1):** **78.33%** ($47 / (47 + 13)$) — When the model predicts a passenger survived, it is correct 78.33% of the time.
-- **Recall for Survivors (Class 1):** **68.12%** ($47 / (47 + 22)$) — The model successfully captured 68.12% of all actual survivors in the test set.
-- **Class 0 Specificity:** Excellent detection of non-survivors with **81.51% precision** and **88.18% recall**.
 
 ---
 
 ## 🎥 LinkedIn Presentation Guides
 
-### Task 1 Walkthrough (2-3 mins):
-- Show dataset loading and `.info()`, `.describe()`, and `.head()` outputs.
-- Present your executive 5-6 line Data Story.
-
-### Task 2 Walkthrough (2-3 mins):
-- Explain your statistical data cleaning choices (`Age` median imputation, `Cabin_Known` binary feature).
-- Walk through the **Survival Rate by Gender & Class Bar Chart**.
-
 ### Task 3 Walkthrough (2-3 mins):
-- Explain how you encoded categorical features using One-Hot Encoding (`pd.get_dummies`) and performed train-test split (`train_test_split`).
-- Present your **Logistic Regression Model Accuracy (80.45%)**.
-- Walk through the **Confusion Matrix heatmap**, explaining True Negatives (97), True Positives (47), False Positives (13), and False Negatives (22).
+- Introduce yourself and state your participation in the **Neurofive ML Track**.
+- Explain why you selected `MedInc`, `AveRooms`, `Latitude`, and `Longitude` to predict house prices.
+- Show the **Predicted vs. Actual Prices Scatter Plot** and explain the red ideal line ($y=x$).
+- Share your **Plain English $R^2$ score explanation (57.24%)** and RMSE ($74,858).
 - Post on LinkedIn tagging **@Neurofive Solutions**!
