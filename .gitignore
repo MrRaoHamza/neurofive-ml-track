@@ -4,17 +4,20 @@ __pycache__/
 *$py.class
 *.so
 
-# Environment
+# Temporary scripts
+run_clean_org.py
+
+# Virtual Environments
 .venv
 venv/
 ENV/
 env/
 
-# Jupyter Notebook checkpoints
+# Jupyter Notebook Checkpoints
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 
-# IDE and OS settings
+# IDE and OS
 .vscode/
 .idea/
 .DS_Store
