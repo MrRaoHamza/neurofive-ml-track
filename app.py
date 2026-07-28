@@ -3,145 +3,324 @@ import joblib
 import pandas as pd
 import numpy as np
 import streamlit as st
-from sklearn.base import BaseEstimator, TransformerMixin
 
+# ---------------------------------------------------------
+# Required for Joblib Unpickling
+# Must be defined in module scope before loading joblib pipeline
+# ---------------------------------------------------------
+def engineer_titanic_features(X):
+    """
+    Feature engineering function matching pipeline definition.
+    Computes FamilySize, IsAlone, and FarePerPerson dynamically.
+    """
+    X_out = X.copy()
+    X_out['FamilySize'] = X_out['SibSp'] + X_out['Parch'] + 1
+    X_out['IsAlone'] = (X_out['FamilySize'] == 1).astype(int)
+    X_out['FarePerPerson'] = X_out['Fare'] / X_out['FamilySize']
+    return X_out
+
+# ---------------------------------------------------------
 # Page Configuration
+# ---------------------------------------------------------
 st.set_page_config(
-    page_title="Titanic Survival Predictor | Neurofive ML Track",
-    page_icon="🚢",
+    page_title="Titanic Survival Inference Engine",
+    page_icon="⚓",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# Custom Styling (Dark Glassmorphic Theme)
+# ---------------------------------------------------------
+# Professional Modern Styling (Clean Enterprise UI)
+# ---------------------------------------------------------
 st.markdown("""
 <style>
-    .main {
-        background-color: #0f172a;
-        color: #f8fafc;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
     }
+    
     .stApp {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        background-color: #0b0f19;
+        color: #e2e8f0;
     }
-    .metric-card {
-        background: rgba(30, 41, 59, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Header Container */
+    .app-header {
+        background: linear-gradient(180deg, #131b2e 0%, #0b0f19 100%);
+        border-bottom: 1px solid #1e293b;
+        padding: 2.5rem 0 1.5rem 0;
+        margin-bottom: 2rem;
+    }
+    
+    .app-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #f8fafc;
+        margin: 0;
+    }
+    
+    .app-subtitle {
+        font-size: 0.95rem;
+        color: #94a3b8;
+        margin-top: 0.3rem;
+        font-weight: 400;
+    }
+
+    /* Cards & Containers */
+    .panel-card {
+        background-color: #111827;
+        border: 1px solid #1f2937;
         border-radius: 12px;
-        padding: 20px;
-        backdrop-filter: blur(10px);
-        margin-bottom: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.25rem;
     }
-    .survived-badge {
-        background-color: #10b981;
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: inline-block;
+    
+    .panel-header {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #f3f4f6;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
-    .perished-badge {
-        background-color: #ef4444;
-        color: white;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: inline-block;
+
+    /* Feature Value Pills */
+    .feature-pill {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.6rem 0.8rem;
+        background-color: #1f2937;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .pill-label {
+        color: #9ca3af;
+        font-weight: 500;
+    }
+    
+    .pill-value {
+        color: #f3f4f6;
+        font-weight: 600;
+    }
+
+    /* Verdict Badges */
+    .verdict-box-survived {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .verdict-title-survived {
+        color: #34d399;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .verdict-box-perished {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .verdict-title-perished {
+        color: #f87171;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Streamlit Input Clean Up */
+    div[data-baseweb="select"] > div {
+        background-color: #1f2937 !important;
+        border-color: #374151 !important;
+        border-radius: 8px !important;
+        color: #f9fafb !important;
+    }
+    
+    .stButton > button {
+        background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #4338ca 0%, #2563eb 100%);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Load Model Pipeline with Cache
+# ---------------------------------------------------------
+# Pipeline Loader with Robust Fallbacks
+# ---------------------------------------------------------
 @st.cache_resource
 def load_pipeline():
-    model_path = "models/titanic_pipeline.joblib"
-    if not os.path.exists(model_path):
-        model_path = "tasks/Task-07-Scikit-Learn-Pipeline/titanic_pipeline.joblib"
-    return joblib.load(model_path)
+    possible_paths = [
+        "models/titanic_pipeline.joblib",
+        "tasks/Task-07-Scikit-Learn-Pipeline/titanic_pipeline.joblib",
+        "../../models/titanic_pipeline.joblib"
+    ]
+    for p in possible_paths:
+        if os.path.exists(p):
+            return joblib.load(p)
+    raise FileNotFoundError("Could not locate 'titanic_pipeline.joblib' model file.")
 
 try:
     pipeline = load_pipeline()
     model_loaded = True
 except Exception as e:
     model_loaded = False
-    st.error(f"Error loading model pipeline: {e}")
+    st.error(f"Unable to load predictive engine: {e}")
 
-# Header Banner
-st.title("🚢 Titanic Survival Prediction Web App")
-st.caption("Neurofive Machine Learning Track — Task 10: Production Model Deployment with Streamlit")
-st.markdown("---")
+# ---------------------------------------------------------
+# Header Section
+# ---------------------------------------------------------
+st.markdown("""
+<div class="app-header">
+    <div class="app-title">Titanic Survival Decision Engine</div>
+    <div class="app-subtitle">Production Machine Learning Inference System — Neurofive ML Track (Task 10)</div>
+</div>
+""", unsafe_allow_html=True)
 
-# Main Layout
-col_inputs, col_results = st.columns([1.1, 1], gap="large")
+# ---------------------------------------------------------
+# Preset Profiles Selector
+# ---------------------------------------------------------
+st.markdown("##### ⚡ Quick Preset Profiles")
+col_p1, col_p2, col_p3 = st.columns(3)
 
-with col_inputs:
-    st.subheader("📋 Passenger Demographic & Ticket Details")
+default_pclass = 3
+default_sex = "male"
+default_age = 22.0
+default_sibsp = 0
+default_parch = 0
+default_fare = 7.25
+default_embarked = "S"
+
+preset = st.radio(
+    "Select a pre-configured profile or customize inputs below:",
+    options=["Custom Input", "First-Class Luxury Female (Margaret Brown)", "Third-Class Single Male (Steerage Passenger)", "Second-Class Family Child (8 yo)"],
+    horizontal=True,
+    label_visibility="collapsed"
+)
+
+if preset == "First-Class Luxury Female (Margaret Brown)":
+    default_pclass, default_sex, default_age, default_sibsp, default_parch, default_fare, default_embarked = 1, "female", 38.0, 0, 0, 110.0, "C"
+elif preset == "Third-Class Single Male (Steerage Passenger)":
+    default_pclass, default_sex, default_age, default_sibsp, default_parch, default_fare, default_embarked = 3, "male", 22.0, 0, 0, 7.25, "S"
+elif preset == "Second-Class Family Child (8 yo)":
+    default_pclass, default_sex, default_age, default_sibsp, default_parch, default_fare, default_embarked = 2, "female", 8.0, 1, 2, 26.25, "S"
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ---------------------------------------------------------
+# Main Interface Layout
+# ---------------------------------------------------------
+col_left, col_right = st.columns([1.1, 1], gap="large")
+
+with col_left:
+    st.markdown('<div class="panel-card">', unsafe_allow_html=True)
+    st.markdown('<div class="panel-header">Passenger Attributes & Ticket Parameters</div>', unsafe_allow_html=True)
     
-    with st.container():
+    col_in1, col_in2 = st.columns(2)
+    with col_in1:
         pclass = st.selectbox(
-            "Passenger Ticket Class (Pclass)",
+            "Ticket Class (Pclass)",
             options=[1, 2, 3],
-            format_func=lambda x: {1: "1st Class (Upper / Executive)", 2: "2nd Class (Middle)", 3: "3rd Class (Lower / Economy)"}[x],
-            index=2,
-            help="Ticket class proxy for socio-economic status"
+            index=[1, 2, 3].index(default_pclass),
+            format_func=lambda x: {1: "1st Class (Upper)", 2: "2nd Class (Middle)", 3: "3rd Class (Lower)"}[x]
         )
         
         sex = st.selectbox(
-            "Gender (Sex)",
+            "Passenger Gender",
             options=["female", "male"],
-            format_func=lambda x: "Female 👩" if x == "female" else "Male 👨",
-            index=0
+            index=["female", "male"].index(default_sex),
+            format_func=lambda x: "Female" if x == "female" else "Male"
         )
         
+        embarked = st.selectbox(
+            "Port of Embarkation",
+            options=["S", "C", "Q"],
+            index=["S", "C", "Q"].index(default_embarked),
+            format_func=lambda x: {"S": "Southampton (S)", "C": "Cherbourg (C)", "Q": "Queenstown (Q)"}[x]
+        )
+
+    with col_in2:
         age = st.slider(
             "Age (Years)",
-            min_value=0.5,
+            min_value=0.42,
             max_value=80.0,
-            value=28.0,
+            value=float(default_age),
             step=0.5
         )
         
-        c_fam1, c_fam2 = st.columns(2)
-        with c_fam1:
-            sibsp = st.number_input("Siblings / Spouses Onboard (SibSp)", min_value=0, max_value=8, value=0)
-        with c_fam2:
-            parch = st.number_input("Parents / Children Onboard (Parch)", min_value=0, max_value=6, value=0)
-            
-        c_fare1, c_fare2 = st.columns(2)
-        with c_fare1:
-            fare = st.number_input("Ticket Fare ($)", min_value=0.0, max_value=512.0, value=32.2, step=1.0)
-        with c_fare2:
-            embarked = st.selectbox(
-                "Port of Embarkation",
-                options=["S", "C", "Q"],
-                format_func=lambda x: {"S": "Southampton (S)", "C": "Cherbourg (C)", "Q": "Queenstown (Q)"}[x]
-            )
-
-    predict_btn = st.button("🔮 Predict Survival Outcome", use_container_width=True, type="primary")
-
-with col_results:
-    st.subheader("📊 Survival Analysis & Inference Results")
+        fare = st.number_input(
+            "Ticket Fare ($)",
+            min_value=0.0,
+            max_value=512.0,
+            value=float(default_fare),
+            step=1.0
+        )
+        
+    st.markdown("<hr style='border-color: #1f2937; margin: 1rem 0;'>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size: 0.9rem; font-weight: 600; color: #9ca3af; margin-bottom: 0.5rem;'>Family Members Onboard</div>", unsafe_allow_html=True)
     
-    # Calculate Live Dynamic Features
+    col_fam1, col_fam2 = st.columns(2)
+    with col_fam1:
+        sibsp = st.number_input("Siblings / Spouses (SibSp)", min_value=0, max_value=8, value=int(default_sibsp))
+    with col_fam2:
+        parch = st.number_input("Parents / Children (Parch)", min_value=0, max_value=6, value=int(default_parch))
+
+    st.markdown("</div>", unsafe_allow_html=True)
+    
+    run_inference = st.button("Run Survival Inference Pipeline", use_container_width=True)
+
+with col_right:
+    st.markdown('<div class="panel-card">', unsafe_allow_html=True)
+    st.markdown('<div class="panel-header">Pipeline Feature Extraction & Diagnostics</div>', unsafe_allow_html=True)
+    
+    # Compute Real-Time Dynamic Feature Pipeline Values
     family_size = sibsp + parch + 1
     is_alone = 1 if family_size == 1 else 0
     fare_per_person = fare / family_size if family_size > 0 else fare
     
     st.markdown(f"""
-    <div class="metric-card">
-        <h4>💡 Engineered Feature Calculation (Live Pipeline Preview)</h4>
-        <ul>
-            <li><b>Total Family Size:</b> {family_size} person(s)</li>
-            <li><b>Traveling Alone:</b> {"Yes 🧍" if is_alone else "No 👥"}</li>
-            <li><b>Adjusted Fare Per Person:</b> ${fare_per_person:.2f}</li>
-        </ul>
+    <div class="feature-pill">
+        <span class="pill-label">Total Family Size</span>
+        <span class="pill-value">{family_size} person(s)</span>
+    </div>
+    <div class="feature-pill">
+        <span class="pill-label">Traveling Solo</span>
+        <span class="pill-value">{"Yes (Single)" if is_alone else "No (Group)"}</span>
+    </div>
+    <div class="feature-pill">
+        <span class="pill-label">Adjusted Fare Per Person</span>
+        <span class="pill-value">${fare_per_person:.2f}</span>
     </div>
     """, unsafe_allow_html=True)
     
-    if predict_btn and model_loaded:
-        # Create raw input DataFrame matching training feature schema
-        raw_input = pd.DataFrame([{
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Perform Model Inference
+    if model_loaded:
+        input_df = pd.DataFrame([{
             'Pclass': pclass,
             'Sex': sex,
             'Age': age,
@@ -151,32 +330,49 @@ with col_results:
             'Embarked': embarked
         }])
         
-        with st.spinner("Running End-to-End Scikit-Learn Pipeline..."):
-            pred_class = pipeline.predict(raw_input)[0]
-            pred_probs = pipeline.predict_proba(raw_input)[0]
-            surv_prob = pred_probs[1] * 100
-            perish_prob = pred_probs[0] * 100
+        try:
+            pred_class = pipeline.predict(input_df)[0]
+            pred_probs = pipeline.predict_proba(input_df)[0]
+            surv_prob = pred_probs[1]
+            perish_prob = pred_probs[0]
             
-        st.markdown("### Model Prediction Outcome:")
-        if pred_class == 1:
-            st.markdown('<div class="survived-badge">🟢 SURVIVED PASSENGER</div>', unsafe_allow_html=True)
-            st.success(f"The model estimates a **{surv_prob:.2f}% probability of survival** for this passenger profile.")
-        else:
-            st.markdown('<div class="perished-badge">🔴 DID NOT SURVIVE</div>', unsafe_allow_html=True)
-            st.error(f"The model estimates a **{perish_prob:.2f}% probability of mortality** ({surv_prob:.2f}% survival probability).")
+            st.markdown('<div class="panel-card">', unsafe_allow_html=True)
+            st.markdown('<div class="panel-header">Model Prediction Outcome</div>', unsafe_allow_html=True)
             
-        st.markdown("#### Probability Distribution Gauge:")
-        st.progress(int(surv_prob))
-        
-        col_m1, col_m2 = st.columns(2)
-        with col_m1:
-            st.metric("Survival Probability", f"{surv_prob:.2f}%")
-        with col_m2:
-            st.metric("Perish Probability", f"{perish_prob:.2f}%")
-            
-    elif not predict_btn:
-        st.info("👈 Adjust passenger parameters on the left panel and click **'Predict Survival Outcome'** to generate live inference.")
+            if pred_class == 1:
+                st.markdown(f"""
+                <div class="verdict-box-survived">
+                    <div class="verdict-title-survived">Predicted: Survived</div>
+                    <div style="color: #94a3b8; font-size: 0.95rem;">Model Probability: <b>{surv_prob*100:.1f}%</b> Confidence</div>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f"""
+                <div class="verdict-box-perished">
+                    <div class="verdict-title-perished">Predicted: Did Not Survive</div>
+                    <div style="color: #94a3b8; font-size: 0.95rem;">Model Probability: <b>{perish_prob*100:.1f}%</b> Mortality Risk</div>
+                </div>
+                """, unsafe_allow_html=True)
 
-# Footer
-st.markdown("---")
-st.caption("Developed by **Rao Hamza Irshad** | Neurofive Machine Learning Track | Powered by Scikit-Learn Pipelines & Streamlit")
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("<div style='font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.3rem;'>Survival Probability Distribution</div>", unsafe_allow_html=True)
+            st.progress(float(surv_prob))
+            
+            m_col1, m_col2 = st.columns(2)
+            with m_col1:
+                st.metric("Survival Likelihood", f"{surv_prob*100:.1f}%")
+            with m_col2:
+                st.metric("Mortality Likelihood", f"{perish_prob*100:.1f}%")
+
+            st.markdown("</div>", unsafe_allow_html=True)
+            
+        except Exception as ex:
+            st.error(f"Inference pipeline execution error: {ex}")
+
+# Footer Documentation
+st.markdown("<br><hr style='border-color: #1e2937;'>", unsafe_allow_html=True)
+st.markdown("""
+<div style="text-align: center; color: #64748b; font-size: 0.85rem; padding-bottom: 1.5rem;">
+    Scikit-Learn Production Pipeline Encapsulation • Built by <b>Rao Hamza Irshad</b> • Neurofive ML Track Task 10
+</div>
+""", unsafe_allow_html=True)
