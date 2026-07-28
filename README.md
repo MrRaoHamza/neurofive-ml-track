@@ -1,6 +1,6 @@
 # 🚢 Neurofive Machine Learning Track
 
-Welcome to the official **Neurofive ML Track** repository maintained by **Rao Hamza Irshad**. This repository showcases complete, modular tasks covering Exploratory Data Analysis (EDA), Statistical Data Cleaning, Data Storytelling, **Linear Regression (Price Prediction)**, **Logistic Regression (Classification)**, **Hyperparameter Tuning (`GridSearchCV`)**, **Telco Customer Churn Prediction (Decision Trees)**, **Scikit-Learn Production Pipelines & Feature Engineering**, and **Ensemble Methods (Random Forest vs. XGBoost)**.
+Welcome to the official **Neurofive ML Track** repository maintained by **Rao Hamza Irshad**. This repository showcases complete, modular tasks covering Exploratory Data Analysis (EDA), Statistical Data Cleaning, Data Storytelling, **Linear Regression (Price Prediction)**, **Logistic Regression (Classification)**, **Hyperparameter Tuning (`GridSearchCV`)**, **Telco Customer Churn Prediction (Decision Trees)**, **Scikit-Learn Production Pipelines & Feature Engineering**, **Ensemble Methods (Random Forest vs. XGBoost)**, and **Handling Imbalanced Datasets (SMOTE & Evaluation Beyond Accuracy)**.
 
 ---
 
@@ -15,7 +15,8 @@ Welcome to the official **Neurofive ML Track** repository maintained by **Rao Ha
 | **Task 05** | **Hyperparameter Tuning & Evaluation** *(Model Optimization)* | Precision/Recall/F1 evaluation, "Why Accuracy Lies" note, 5-Fold `GridSearchCV` tuning, Before/After performance comparison table. | 🔗 [**Task 5 Notebook**](tasks/Task-05-Hyperparameter-Tuning-Evaluation/Task_05_Hyperparameter_Tuning.ipynb) |
 | **Task 06** | **Telco Customer Churn Prediction** *(Decision Trees & Business Pitch)* | IBM Telco Churn EDA, Decision Tree vs. Logistic Regression comparison, **Top 3 Churn Drivers** (`tenure`, `Fiber Optic`, `TotalCharges`), 5-sentence Business Summary. | 🔗 [**Task 6 Notebook**](tasks/Task-06-Telco-Customer-Churn/Task_06_Telco_Customer_Churn.ipynb) |
 | **Task 07** | **Scikit-Learn Production Pipelines** *(Leak-Free ML & Feature Engineering)* | `ColumnTransformer`, `StandardScaler`, `OneHotEncoder`, custom `TitanicFeatureEngineer` (`FamilySize`, `IsAlone`, `FarePerPerson`), **Accuracy = 81.56%**, **ROC-AUC = 0.8509**, `joblib` serialization. | 🔗 [**Task 7 Notebook**](tasks/Task-07-Scikit-Learn-Pipeline/Task_07_Scikit_Learn_Pipeline.ipynb) |
-| **Task 08** | **Ensemble Methods — Random Forest vs. XGBoost** *(Bagging vs. Boosting)* | Train `RandomForestClassifier` & `XGBClassifier`, side-by-side `.feature_importances_` comparison, Bagging vs. Boosting theoretical breakdown, **Accuracy = 80.62%**, **ROC-AUC = 0.8529**. | 🔗 [**Task 8 Notebook**](tasks/Task-08-Ensemble-Methods/Task_08_Ensemble_Methods.ipynb) |
+| **Task 08** | **Ensemble Methods — Random Forest vs. XGBoost** *(Bagging vs. Boosting)* | Train `RandomForestClassifier` & `XGBClassifier`, side-by-side `.feature_importances_` comparison, Bagging vs. Boosting theoretical breakdown, **Accuracy = 81.05%**, **ROC-AUC = 0.8453**. | 🔗 [**Task 8 Notebook**](tasks/Task-08-Ensemble-Methods/Task_08_Ensemble_Methods.ipynb) |
+| **Task 09** | **Handling Imbalanced Datasets** *(SMOTE & Evaluation Beyond Accuracy)* | Target class balance visualization (73.46% vs 26.54%), **SMOTE** oversampling (`imbalanced-learn`), Class Weighting, **Recall Boost (+29.95% to +34.23%)**, Accuracy Paradox breakdown. | 🔗 [**Task 9 Notebook**](tasks/Task-09-Handling-Imbalanced-Data/Task_09_Handling_Imbalanced_Data.ipynb) |
 
 ---
 
@@ -40,8 +41,10 @@ neurofive-ml-track/
 │   ├── Task-07-Scikit-Learn-Pipeline/
 │   │   ├── Task_07_Scikit_Learn_Pipeline.ipynb       # Task 7 Notebook (Scikit-Learn Pipelines)
 │   │   └── titanic_pipeline.joblib                   # Production Pipeline Artifact
-│   └── Task-08-Ensemble-Methods/
-│       └── Task_08_Ensemble_Methods.ipynb            # Task 8 Notebook (Random Forest vs XGBoost)
+│   ├── Task-08-Ensemble-Methods/
+│   │   └── Task_08_Ensemble_Methods.ipynb            # Task 8 Notebook (Random Forest vs XGBoost)
+│   └── Task-09-Handling-Imbalanced-Data/
+│       └── Task_09_Handling_Imbalanced_Data.ipynb    # Task 9 Notebook (SMOTE & Imbalanced Data)
 │
 ├── models/                                           # Saved Production Pipeline Artifacts
 │   └── titanic_pipeline.joblib                       # Serialized End-to-End Model Pipeline
@@ -66,7 +69,10 @@ neurofive-ml-track/
 │   ├── pipeline_confusion_matrix.png                 # Heatmap: Final Pipeline Confusion Matrix (Task 7)
 │   ├── ensemble_feature_importances.png              # Bar Chart: Random Forest vs XGBoost Importances (Task 8)
 │   ├── ensemble_model_comparison.png                 # Bar Chart: Single Models vs Ensemble Benchmark (Task 8)
-│   └── ensemble_confusion_matrix.png                 # Heatmap: XGBoost Confusion Matrix (Task 8)
+│   ├── ensemble_confusion_matrix.png                 # Heatmap: XGBoost Confusion Matrix (Task 8)
+│   ├── class_imbalance_distribution.png              # Bar Chart: Target Class Balance Distribution (Task 9)
+│   ├── imbalance_techniques_comparison.png           # Bar Chart: Rebalancing Techniques Benchmark (Task 9)
+│   └── smote_confusion_matrix.png                    # Heatmap: SMOTE Model Confusion Matrix (Task 9)
 │
 ├── src/                                              # Reusable Code & Build Pipeline
 │   ├── generate_notebooks.py                         # Baseline build script
@@ -74,9 +80,10 @@ neurofive-ml-track/
 │   ├── generate_task5.py                             # Task 5 generator
 │   ├── generate_task6.py                             # Task 6 generator
 │   ├── generate_task7.py                             # Task 7 pipeline generator
-│   └── generate_task8.py                             # Task 8 ensemble generator
+│   ├── generate_task8.py                             # Task 8 ensemble generator
+│   └── generate_task9.py                             # Task 9 imbalanced data generator
 │
-├── requirements.txt                                  # Project Dependencies (scikit-learn, xgboost, joblib)
+├── requirements.txt                                  # Project Dependencies (scikit-learn, xgboost, imbalanced-learn, joblib)
 ├── README.md                                         # Executive Repository Documentation
 └── .gitignore                                        # Workspace Git Ignore Rules
 ```
@@ -89,9 +96,49 @@ neurofive-ml-track/
 git clone https://github.com/MrRaoHamza/neurofive-ml-track.git
 cd neurofive-ml-track
 pip install -r requirements.txt
-python src/generate_task8.py
-jupyter notebook tasks/Task-08-Ensemble-Methods/Task_08_Ensemble_Methods.ipynb
+python src/generate_task9.py
+jupyter notebook tasks/Task-09-Handling-Imbalanced-Data/Task_09_Handling_Imbalanced_Data.ipynb
 ```
+
+---
+
+## ⚖️ Task 09: Handling Imbalanced Data & Evaluation Beyond Accuracy
+
+### 🛠️ Target Distribution & Rebalancing Techniques
+Real-world classification datasets (fraud, churn, medical diagnosis) feature heavy class imbalance. In our **Telco Customer Churn** dataset (7,043 rows):
+- **Retained (Majority Class 0):** 5,174 customers (**73.46%**)
+- **Churned (Minority Class 1):** 1,869 customers (**26.54%**)
+
+![Class Imbalance Distribution](assets/class_imbalance_distribution.png)
+
+To solve this, we evaluated 4 distinct approaches on an 80/20 stratified holdout test split (1,409 test samples):
+1. **Unbalanced Baseline:** Standard `RandomForestClassifier` trained on raw un-weighted data.
+2. **Class Weighting:** Cost-sensitive penalization (`class_weight='balanced'`).
+3. **SMOTE Oversampling:** Synthetic Minority Over-sampling Technique via `imblearn.over_sampling.SMOTE`.
+4. **Random Undersampling:** Majority class downsampling via `imblearn.under_sampling.RandomUnderSampler`.
+
+---
+
+### 📊 Performance Comparison Benchmark Table (Before & After Rebalancing)
+
+| Handling Technique | Accuracy | Precision (Churn) | Recall (Churn) | F1-Score (Churn) | ROC-AUC Score | Recall Boost vs Baseline |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Unbalanced Baseline (Raw Data)** | **80.48%** | **68.64%** | 43.58% | 0.5333 | **0.8437** | Baseline |
+| **Class Weighting (`class_weight="balanced"`)** | 75.09% | 52.18% | **77.81%** | 0.6249 | 0.8427 | **+34.23%** |
+| **SMOTE Oversampling (`imblearn`)** | 76.86% | 55.16% | **73.53%** | **0.6303** | 0.8407 | **+29.95%** |
+| **Random Undersampling (`imblearn`)** | 74.10% | 50.90% | **75.94%** | 0.6094 | 0.8354 | **+32.36%** |
+
+![Imbalance Techniques Comparison](assets/imbalance_techniques_comparison.png)
+
+![SMOTE Confusion Matrix](assets/smote_confusion_matrix.png)
+
+---
+
+### 🧠 Theoretical Explanation: Why "Accuracy" is a Misleading Metric for Imbalanced Data
+
+> **The Accuracy Paradox:** Raw classification Accuracy measures the percentage of correct predictions across all samples. On an imbalanced dataset where 95% of transactions are legitimate and 5% are fraudulent, a naive baseline model that blindly predicts "Legitimate" for every single input will achieve **95% accuracy** while catching **0% of fraud cases** (Recall = 0.00).
+>
+> In real-world applications like churn prediction or medical diagnosis, the cost of a **False Negative** (failing to identify a churning customer or sick patient) far outweighs the cost of a **False Positive**. Therefore, models trained on imbalanced data must be evaluated using **Precision, Recall, F1-Score (for the minority class), and ROC-AUC**, rather than deceptive overall accuracy.
 
 ---
 
@@ -112,8 +159,8 @@ We benchmarked 4 distinct models on the **Telco Customer Churn** dataset (7,043 
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Logistic Regression (Class-Balanced)** | Single Model | 73.88% | 50.52% | **78.07%** | 61.34% | 0.8412 |
 | **Decision Tree Classifier (`max_depth=5`)** | Single Model | 79.42% | 62.96% | 54.55% | 58.45% | 0.8284 |
-| **Random Forest Classifier (Bagging)** | Ensemble | **80.62%** | **68.85%** | 44.92% | 54.37% | **0.8529** |
-| **XGBoost Classifier (Gradient Boosting)** | Ensemble | **80.48%** | 66.92% | 47.86% | 55.80% | **0.8492** |
+| **Random Forest Classifier (Bagging)** | Ensemble | **81.05%** | **68.90%** | 52.14% | **0.5936** | 0.8432 |
+| **XGBoost Classifier (Gradient Boosting)** | Ensemble | 80.06% | 65.25% | 53.21% | 0.5862 | **0.8453** |
 
 ![Ensemble Model Comparison](assets/ensemble_model_comparison.png)
 
@@ -125,11 +172,11 @@ Using `.feature_importances_`, we evaluated how Bagging and Boosting assign feat
 
 | Top Rank | Random Forest (Bagging - Gini Impurity) | XGBoost (Gradient Boosting - Gain) |
 | :---: | :--- | :--- |
-| **#1** | **`Contract_Two year` (15.86% weight)** | **`Contract_Two year` (34.76% weight)** |
-| **#2** | **`tenure` (15.17% weight)** | **`InternetService_Fiber optic` (24.59% weight)** |
-| **#3** | **`InternetService_Fiber optic` (10.65% weight)** | **`Contract_One year` (7.73% weight)** |
-| **#4** | **`TotalCharges` (8.99% weight)** | **`PaymentMethod_Electronic check` (5.37% weight)** |
-| **#5** | **`MonthlyCharges` (7.66% weight)** | **`OnlineSecurity_Yes` (3.82% weight)** |
+| **#1** | **`tenure` (20.90% weight)** | **`InternetService_Fiber optic` (27.59% weight)** |
+| **#2** | **`TotalCharges` (13.81% weight)** | **`Contract_One year` (20.70% weight)** |
+| **#3** | **`MonthlyCharges` (9.29% weight)** | **`Contract_Two year` (18.12% weight)** |
+| **#4** | **`InternetService_Fiber optic` (8.54% weight)** | **`InternetService_No` (5.26% weight)** |
+| **#5** | **`PaymentMethod_Electronic check` (7.41% weight)** | **`tenure` (4.11% weight)** |
 
 ![Ensemble Feature Importances](assets/ensemble_feature_importances.png)
 
@@ -229,9 +276,18 @@ Using `dt_model.feature_importances_` from the Decision Tree Classifier, we iden
 
 ## 🎥 LinkedIn Presentation Guides
 
+### Task 9 Walkthrough (2-3 mins):
+- **Hook:** Introduce yourself as a Data Scientist in the **Neurofive ML Track**. Present the core problem: **Class Imbalance in real-world ML (73.46% majority vs 26.54% churners)**.
+- **The Accuracy Paradox:** Explain why raw Accuracy is misleading — a naive model predicting zero churn gets 73.5% accuracy while catching 0% of churners.
+- **Techniques & Comparison:** Show the **Class Imbalance Techniques Chart** ([`assets/imbalance_techniques_comparison.png`](assets/imbalance_techniques_comparison.png)) demonstrating how **SMOTE** and **Class Weighting** boost Recall from **43.58% to 77.81% (+34.23% increase)**.
+- **Business Impact:** Show the **SMOTE Confusion Matrix** ([`assets/smote_confusion_matrix.png`](assets/smote_confusion_matrix.png)) and explain why catching 113 additional churners creates massive recurring revenue value for businesses.
+- **Tagging:** Post on LinkedIn tagging **@Neurofive Solutions**!
+
+---
+
 ### Task 8 Walkthrough (2-3 mins):
 - **Hook:** Introduce yourself as a Data Scientist in the **Neurofive ML Track**. Explain that single models hit performance limits, while **Ensemble Methods** combine multiple trees to build winning predictive systems.
-- **Model Comparison:** Show the **Ensemble Benchmark Chart** ([`assets/ensemble_model_comparison.png`](assets/ensemble_model_comparison.png)) comparing Logistic Regression, Decision Trees, Random Forest, and XGBoost on Telco Customer Churn data. Highlight **Random Forest (80.62% Accuracy, 0.8529 ROC-AUC)** and **XGBoost (80.48% Accuracy, 0.8492 ROC-AUC)** outperforming single decision trees.
+- **Model Comparison:** Show the **Ensemble Benchmark Chart** ([`assets/ensemble_model_comparison.png`](assets/ensemble_model_comparison.png)) comparing Logistic Regression, Decision Trees, Random Forest, and XGBoost on Telco Customer Churn data.
 - **Feature Importances (Bagging vs Boosting):** Show the **Side-by-Side Feature Importances Chart** ([`assets/ensemble_feature_importances.png`](assets/ensemble_feature_importances.png)). Explain how Random Forest spreads feature weight smoothly across continuous variables (`tenure`, `TotalCharges`), whereas XGBoost concentrates weight on decisive binary split nodes (`Contract_Two year`, `InternetService_Fiber optic`).
 - **Core Concept (Bagging vs Boosting):** Pitch your 3-4 sentence explanation: Random Forest builds trees *in parallel independently* to cut variance; XGBoost builds trees *sequentially in series* to minimize residual errors.
 - **Tagging:** Post on LinkedIn tagging **@Neurofive Solutions**!
