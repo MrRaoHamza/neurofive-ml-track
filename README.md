@@ -1,22 +1,23 @@
 # 🚢 Neurofive Machine Learning Track
 
-Welcome to the official **Neurofive ML Track** repository maintained by **Rao Hamza Irshad**. This repository showcases complete, modular tasks covering Exploratory Data Analysis (EDA), Statistical Data Cleaning, Data Storytelling, **Linear Regression (Price Prediction)**, **Logistic Regression (Classification)**, **Hyperparameter Tuning (`GridSearchCV`)**, **Telco Customer Churn Prediction (Decision Trees)**, **Scikit-Learn Production Pipelines & Feature Engineering**, **Ensemble Methods (Random Forest vs. XGBoost)**, and **Handling Imbalanced Datasets (SMOTE & Evaluation Beyond Accuracy)**.
+Welcome to the official **Neurofive ML Track** repository maintained by **Rao Hamza Irshad**. This repository showcases complete, modular tasks covering Exploratory Data Analysis (EDA), Statistical Data Cleaning, Data Storytelling, **Linear Regression (Price Prediction)**, **Logistic Regression (Classification)**, **Hyperparameter Tuning (`GridSearchCV`)**, **Telco Customer Churn Prediction (Decision Trees)**, **Scikit-Learn Production Pipelines & Feature Engineering**, **Ensemble Methods (Random Forest vs. XGBoost)**, **Handling Imbalanced Datasets (SMOTE & Evaluation Beyond Accuracy)**, and **Production Model Deployment with Streamlit**.
 
 ---
 
 ## 📌 Task Submission Matrix (Task-Wise Links)
 
-| Track Task | Task Scope & Model Type | Key Deliverables & Performance | Direct Notebook Link |
-| :--- | :--- | :--- | :--- |
-| **Task 01** | **Baseline EDA & Setup** *(Exploratory Data Analysis)* | Structural inspection (`.info()`, `.describe()`, `.head()`), feature classification, 6-line executive Data Story. | 🔗 [**Task 1 Notebook**](tasks/Task-01-Baseline-EDA/Task_01_Titanic_EDA.ipynb) |
-| **Task 02** | **Data Cleaning & Visual Storytelling** *(EDA & Visualization)* | Statistical `fillna()` justifications, IQR Outlier Detection, 4 Seaborn plots, written feature survival analysis. | 🔗 [**Task 2 Notebook**](tasks/Task-02-Cleaning-and-Visualization/Task_02_Data_Cleaning_Visualizations.ipynb) |
-| **Task 03** | **Linear Regression Model** *(Regression - Housing Prices)* | Predict house values using 4 features (`MedInc`, `AveRooms`, `Latitude`, `Longitude`). **RMSE = $74,858.88**, **$R^2$ = 57.24%**, Scatter Plot. | 🔗 [**Task 3 Notebook**](tasks/Task-03-Linear-Regression-House-Prices/Task_03_Linear_Regression.ipynb) |
-| **Task 04** | **Logistic Regression Model** *(Classification - Survival)* | Categorical One-Hot Encoding (`pd.get_dummies`), 80/20 train-test split, **Accuracy = 80.45%**, Confusion Matrix breakdown. | 🔗 [**Task 4 Notebook**](tasks/Task-04-Logistic-Regression-Titanic/Task_04_Logistic_Regression.ipynb) |
-| **Task 05** | **Hyperparameter Tuning & Evaluation** *(Model Optimization)* | Precision/Recall/F1 evaluation, "Why Accuracy Lies" note, 5-Fold `GridSearchCV` tuning, Before/After performance comparison table. | 🔗 [**Task 5 Notebook**](tasks/Task-05-Hyperparameter-Tuning-Evaluation/Task_05_Hyperparameter_Tuning.ipynb) |
-| **Task 06** | **Telco Customer Churn Prediction** *(Decision Trees & Business Pitch)* | IBM Telco Churn EDA, Decision Tree vs. Logistic Regression comparison, **Top 3 Churn Drivers** (`tenure`, `Fiber Optic`, `TotalCharges`), 5-sentence Business Summary. | 🔗 [**Task 6 Notebook**](tasks/Task-06-Telco-Customer-Churn/Task_06_Telco_Customer_Churn.ipynb) |
-| **Task 07** | **Scikit-Learn Production Pipelines** *(Leak-Free ML & Feature Engineering)* | `ColumnTransformer`, `StandardScaler`, `OneHotEncoder`, custom `TitanicFeatureEngineer` (`FamilySize`, `IsAlone`, `FarePerPerson`), **Accuracy = 81.56%**, **ROC-AUC = 0.8509**, `joblib` serialization. | 🔗 [**Task 7 Notebook**](tasks/Task-07-Scikit-Learn-Pipeline/Task_07_Scikit_Learn_Pipeline.ipynb) |
-| **Task 08** | **Ensemble Methods — Random Forest vs. XGBoost** *(Bagging vs. Boosting)* | Train `RandomForestClassifier` & `XGBClassifier`, side-by-side `.feature_importances_` comparison, Bagging vs. Boosting theoretical breakdown, **Accuracy = 81.05%**, **ROC-AUC = 0.8453**. | 🔗 [**Task 8 Notebook**](tasks/Task-08-Ensemble-Methods/Task_08_Ensemble_Methods.ipynb) |
-| **Task 09** | **Handling Imbalanced Datasets** *(SMOTE & Evaluation Beyond Accuracy)* | Target class balance visualization (73.46% vs 26.54%), **SMOTE** oversampling (`imbalanced-learn`), Class Weighting, **Recall Boost (+29.95% to +34.23%)**, Accuracy Paradox breakdown. | 🔗 [**Task 9 Notebook**](tasks/Task-09-Handling-Imbalanced-Data/Task_09_Handling_Imbalanced_Data.ipynb) |
+| Track Task | Task Scope & Model Type | Key Deliverables & Performance | Direct Notebook Link | Live Web App / Deploy |
+| :--- | :--- | :--- | :--- | :---: |
+| **Task 01** | **Baseline EDA & Setup** *(Exploratory Data Analysis)* | Structural inspection (`.info()`, `.describe()`, `.head()`), feature classification, 6-line executive Data Story. | 🔗 [**Task 1 Notebook**](tasks/Task-01-Baseline-EDA/Task_01_Titanic_EDA.ipynb) | N/A |
+| **Task 02** | **Data Cleaning & Visual Storytelling** *(EDA & Visualization)* | Statistical `fillna()` justifications, IQR Outlier Detection, 4 Seaborn plots, written feature survival analysis. | 🔗 [**Task 2 Notebook**](tasks/Task-02-Cleaning-and-Visualization/Task_02_Data_Cleaning_Visualizations.ipynb) | N/A |
+| **Task 03** | **Linear Regression Model** *(Regression - Housing Prices)* | Predict house values using 4 features (`MedInc`, `AveRooms`, `Latitude`, `Longitude`). **RMSE = $74,858.88**, **$R^2$ = 57.24%**, Scatter Plot. | 🔗 [**Task 3 Notebook**](tasks/Task-03-Linear-Regression-House-Prices/Task_03_Linear_Regression.ipynb) | N/A |
+| **Task 04** | **Logistic Regression Model** *(Classification - Survival)* | Categorical One-Hot Encoding (`pd.get_dummies`), 80/20 train-test split, **Accuracy = 80.45%**, Confusion Matrix breakdown. | 🔗 [**Task 4 Notebook**](tasks/Task-04-Logistic-Regression-Titanic/Task_04_Logistic_Regression.ipynb) | N/A |
+| **Task 05** | **Hyperparameter Tuning & Evaluation** *(Model Optimization)* | Precision/Recall/F1 evaluation, "Why Accuracy Lies" note, 5-Fold `GridSearchCV` tuning, Before/After performance comparison table. | 🔗 [**Task 5 Notebook**](tasks/Task-05-Hyperparameter-Tuning-Evaluation/Task_05_Hyperparameter_Tuning.ipynb) | N/A |
+| **Task 06** | **Telco Customer Churn Prediction** *(Decision Trees & Business Pitch)* | IBM Telco Churn EDA, Decision Tree vs. Logistic Regression comparison, **Top 3 Churn Drivers** (`tenure`, `Fiber Optic`, `TotalCharges`), 5-sentence Business Summary. | 🔗 [**Task 6 Notebook**](tasks/Task-06-Telco-Customer-Churn/Task_06_Telco_Customer_Churn.ipynb) | N/A |
+| **Task 07** | **Scikit-Learn Production Pipelines** *(Leak-Free ML & Feature Engineering)* | `ColumnTransformer`, `StandardScaler`, `OneHotEncoder`, custom `TitanicFeatureEngineer` (`FamilySize`, `IsAlone`, `FarePerPerson`), **Accuracy = 81.56%**, **ROC-AUC = 0.8509**, `joblib` serialization. | 🔗 [**Task 7 Notebook**](tasks/Task-07-Scikit-Learn-Pipeline/Task_07_Scikit_Learn_Pipeline.ipynb) | N/A |
+| **Task 08** | **Ensemble Methods — Random Forest vs. XGBoost** *(Bagging vs. Boosting)* | Train `RandomForestClassifier` & `XGBClassifier`, side-by-side `.feature_importances_` comparison, Bagging vs. Boosting theoretical breakdown, **Accuracy = 81.05%**, **ROC-AUC = 0.8453**. | 🔗 [**Task 8 Notebook**](tasks/Task-08-Ensemble-Methods/Task_08_Ensemble_Methods.ipynb) | N/A |
+| **Task 09** | **Handling Imbalanced Datasets** *(SMOTE & Evaluation Beyond Accuracy)* | Target class balance visualization (73.46% vs 26.54%), **SMOTE** oversampling (`imbalanced-learn`), Class Weighting, **Recall Boost (+29.95% to +36.09%)**, Accuracy Paradox breakdown. | 🔗 [**Task 9 Notebook**](tasks/Task-09-Handling-Imbalanced-Data/Task_09_Handling_Imbalanced_Data.ipynb) | N/A |
+| **Task 10** | **Production Model Deployment with Streamlit** *(Interactive Web Application)* | Interactive Streamlit App (`app.py`), single-line pipeline inference (`models/titanic_pipeline.joblib`), dark-mode UI, live feature preview, prediction badges. | 🔗 [**Task 10 Notebook**](tasks/Task-10-Model-Deployment-Streamlit/Task_10_Model_Deployment_Streamlit.ipynb) | 🌐 [**Live Web App**](https://neurofive-ml-track-titanic.streamlit.app) |
 
 ---
 
@@ -24,6 +25,8 @@ Welcome to the official **Neurofive ML Track** repository maintained by **Rao Ha
 
 ```
 neurofive-ml-track/
+│
+├── app.py                                            # Production Streamlit Web Application
 │
 ├── tasks/                                            # Modular Task Directory
 │   ├── Task-01-Baseline-EDA/
@@ -43,8 +46,10 @@ neurofive-ml-track/
 │   │   └── titanic_pipeline.joblib                   # Production Pipeline Artifact
 │   ├── Task-08-Ensemble-Methods/
 │   │   └── Task_08_Ensemble_Methods.ipynb            # Task 8 Notebook (Random Forest vs XGBoost)
-│   └── Task-09-Handling-Imbalanced-Data/
-│       └── Task_09_Handling_Imbalanced_Data.ipynb    # Task 9 Notebook (SMOTE & Imbalanced Data)
+│   ├── Task-09-Handling-Imbalanced-Data/
+│   │   └── Task_09_Handling_Imbalanced_Data.ipynb    # Task 9 Notebook (SMOTE & Imbalanced Data)
+│   └── Task-10-Model-Deployment-Streamlit/
+│       └── Task_10_Model_Deployment_Streamlit.ipynb  # Task 10 Notebook (Streamlit Deployment)
 │
 ├── models/                                           # Saved Production Pipeline Artifacts
 │   └── titanic_pipeline.joblib                       # Serialized End-to-End Model Pipeline
@@ -81,9 +86,10 @@ neurofive-ml-track/
 │   ├── generate_task6.py                             # Task 6 generator
 │   ├── generate_task7.py                             # Task 7 pipeline generator
 │   ├── generate_task8.py                             # Task 8 ensemble generator
-│   └── generate_task9.py                             # Task 9 imbalanced data generator
+│   ├── generate_task9.py                             # Task 9 imbalanced data generator
+│   └── generate_task10.py                            # Task 10 deployment generator
 │
-├── requirements.txt                                  # Project Dependencies (scikit-learn, xgboost, imbalanced-learn, joblib)
+├── requirements.txt                                  # Project Dependencies (streamlit, scikit-learn, xgboost, imbalanced-learn, joblib)
 ├── README.md                                         # Executive Repository Documentation
 └── .gitignore                                        # Workspace Git Ignore Rules
 ```
@@ -92,13 +98,27 @@ neurofive-ml-track/
 
 ## ⚙️ Environment Setup & Quickstart
 
+### 🖥️ Local Execution
 ```bash
 git clone https://github.com/MrRaoHamza/neurofive-ml-track.git
 cd neurofive-ml-track
 pip install -r requirements.txt
-python src/generate_task9.py
-jupyter notebook tasks/Task-09-Handling-Imbalanced-Data/Task_09_Handling_Imbalanced_Data.ipynb
+
+# Launch Local Interactive Streamlit Web Application
+streamlit run app.py
 ```
+
+---
+
+## 🚀 Task 10: Production Model Deployment with Streamlit
+
+### 🌐 Live Web Application & UI Architecture
+We deployed our best-performing **Scikit-Learn Production Pipeline** (`models/titanic_pipeline.joblib`) into a shareable web app [`app.py`](app.py).
+
+- **Live Application Link:** 🌐 [**neurofive-ml-track-titanic.streamlit.app**](https://neurofive-ml-track-titanic.streamlit.app)
+- **Framework:** Streamlit with dark-mode glassmorphic CSS styling.
+- **Single-Call Pipeline Inference:** User inputs (`Pclass`, `Sex`, `Age`, `SibSp`, `Parch`, `Fare`, `Embarked`) are passed directly into `pipeline.predict(raw_df)` and `pipeline.predict_proba(raw_df)` without manual feature transformation.
+- **Real-Time Diagnostics:** Displays dynamic engineered feature previews (`FamilySize`, `IsAlone`, `FarePerPerson`), prediction status badges (🟢 **SURVIVED PASSENGER** / 🔴 **DID NOT SURVIVE**), and probability metrics.
 
 ---
 
@@ -123,10 +143,10 @@ To solve this, we evaluated 4 distinct approaches on an 80/20 stratified holdout
 
 | Handling Technique | Accuracy | Precision (Churn) | Recall (Churn) | F1-Score (Churn) | ROC-AUC Score | Recall Boost vs Baseline |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Unbalanced Baseline (Raw Data)** | **80.48%** | **68.64%** | 43.58% | 0.5333 | **0.8437** | Baseline |
-| **Class Weighting (`class_weight="balanced"`)** | 75.09% | 52.18% | **77.81%** | 0.6249 | 0.8427 | **+34.23%** |
-| **SMOTE Oversampling (`imblearn`)** | 76.86% | 55.16% | **73.53%** | **0.6303** | 0.8407 | **+29.95%** |
-| **Random Undersampling (`imblearn`)** | 74.10% | 50.90% | **75.94%** | 0.6094 | 0.8354 | **+32.36%** |
+| **Unbalanced Baseline (Raw Data)** | **79.63%** | **67.90%** | 44.12% | 0.5348 | 0.8429 | Baseline |
+| **Class Weighting (`class_weight="balanced"`)** | 74.31% | 51.02% | **80.21%** | **0.6237** | 0.8415 | **+36.09%** |
+| **SMOTE Oversampling (`imblearn`)** | 74.80% | 51.82% | **72.19%** | 0.6034 | 0.8322 | **+28.07%** |
+| **Random Undersampling (`imblearn`)** | 74.17% | 50.85% | **79.68%** | 0.6208 | **0.8444** | **+35.56%** |
 
 ![Imbalance Techniques Comparison](assets/imbalance_techniques_comparison.png)
 
@@ -213,7 +233,7 @@ Using `.feature_importances_`, we evaluated how Bagging and Boosting assign feat
 | **Precision (Survivors)** | 77.97% | 77.97% | **81.03%** | **+3.06%** — Reduced false positive survival predictions |
 | **Recall (Survivors)** | 66.67% | 66.67% | **68.12%** | **+1.45%** — Correctly identified more actual survivors |
 | **F1-Score (Survivors)** | 0.7188 | 0.7188 | **0.7402** | **+0.0214** — Superior harmonic mean of Precision & Recall |
-| **ROC-AUC Score** | 0.8436 | 0.8436 | **0.8509** | **+0.0073** — Enhanced class probability separation |
+| **ROC-AUC Score** | 0.8436 | 0.8436 | **0.8509** | **+0.0073** — Enhanced class separation |
 
 ![Performance Comparison](assets/pipeline_performance_comparison.png)
 
@@ -276,11 +296,18 @@ Using `dt_model.feature_importances_` from the Decision Tree Classifier, we iden
 
 ## 🎥 LinkedIn Presentation Guides
 
+### Task 10 Walkthrough (2-3 mins):
+- **Hook & Core Problem:** Introduce yourself as a Data Scientist in the **Neurofive ML Track**. Explain that a model sitting in a notebook cell has zero business impact until non-technical users can interact with it.
+- **Live Demo of Streamlit Web App:** Demo [`app.py`](app.py) live on video. Adjust input parameters (`Pclass`, `Sex`, `Age`, `SibSp`, `Parch`, `Fare`, `Embarked`) and click **"Predict Survival Outcome"**.
+- **Show Highlights:** Point out live calculated feature previews (`FamilySize`, `FarePerPerson`), survival status badges (🟢 **SURVIVED PASSENGER** / 🔴 **DID NOT SURVIVE**), and confidence score metrics.
+- **Call to Action & Tagging:** Direct viewers to test the live web app at 🌐 [**neurofive-ml-track-titanic.streamlit.app**](https://neurofive-ml-track-titanic.streamlit.app) and tag **@Neurofive Solutions**!
+
+---
+
 ### Task 9 Walkthrough (2-3 mins):
 - **Hook:** Introduce yourself as a Data Scientist in the **Neurofive ML Track**. Present the core problem: **Class Imbalance in real-world ML (73.46% majority vs 26.54% churners)**.
 - **The Accuracy Paradox:** Explain why raw Accuracy is misleading — a naive model predicting zero churn gets 73.5% accuracy while catching 0% of churners.
-- **Techniques & Comparison:** Show the **Class Imbalance Techniques Chart** ([`assets/imbalance_techniques_comparison.png`](assets/imbalance_techniques_comparison.png)) demonstrating how **SMOTE** and **Class Weighting** boost Recall from **43.58% to 77.81% (+34.23% increase)**.
-- **Business Impact:** Show the **SMOTE Confusion Matrix** ([`assets/smote_confusion_matrix.png`](assets/smote_confusion_matrix.png)) and explain why catching 113 additional churners creates massive recurring revenue value for businesses.
+- **Techniques & Comparison:** Show the **Class Imbalance Techniques Chart** ([`assets/imbalance_techniques_comparison.png`](assets/imbalance_techniques_comparison.png)) demonstrating how **SMOTE** and **Class Weighting** boost Recall from **43.58% to 80.21% (+36.09% increase)**.
 - **Tagging:** Post on LinkedIn tagging **@Neurofive Solutions**!
 
 ---
@@ -288,24 +315,10 @@ Using `dt_model.feature_importances_` from the Decision Tree Classifier, we iden
 ### Task 8 Walkthrough (2-3 mins):
 - **Hook:** Introduce yourself as a Data Scientist in the **Neurofive ML Track**. Explain that single models hit performance limits, while **Ensemble Methods** combine multiple trees to build winning predictive systems.
 - **Model Comparison:** Show the **Ensemble Benchmark Chart** ([`assets/ensemble_model_comparison.png`](assets/ensemble_model_comparison.png)) comparing Logistic Regression, Decision Trees, Random Forest, and XGBoost on Telco Customer Churn data.
-- **Feature Importances (Bagging vs Boosting):** Show the **Side-by-Side Feature Importances Chart** ([`assets/ensemble_feature_importances.png`](assets/ensemble_feature_importances.png)). Explain how Random Forest spreads feature weight smoothly across continuous variables (`tenure`, `TotalCharges`), whereas XGBoost concentrates weight on decisive binary split nodes (`Contract_Two year`, `InternetService_Fiber optic`).
-- **Core Concept (Bagging vs Boosting):** Pitch your 3-4 sentence explanation: Random Forest builds trees *in parallel independently* to cut variance; XGBoost builds trees *sequentially in series* to minimize residual errors.
 - **Tagging:** Post on LinkedIn tagging **@Neurofive Solutions**!
 
 ---
 
 ### Task 7 Walkthrough (2-3 mins):
 - **Hook & Core Problem:** Introduce yourself as a Data Scientist in the **Neurofive ML Track**. Explain that professional ML isn't a collection of disparate notebook cells, but a robust pipeline that prevents **data leakage**.
-- **Visual Demo:** Show the **Scikit-Learn Pipeline Architecture Diagram** ([`assets/pipeline_architecture_diagram.png`](assets/pipeline_architecture_diagram.png)) and explain how `ColumnTransformer` handles `StandardScaler` for numeric features and `OneHotEncoder` for categorical features automatically.
-- **Feature Engineering:** Highlight your 3 custom engineered features (`FamilySize`, `IsAlone`, `FarePerPerson`) created via a custom scikit-learn transformer, boosting model accuracy to **81.56%** and ROC-AUC to **0.8509**.
-- **Production Export:** Demonstrate saving the complete pipeline to `models/titanic_pipeline.joblib` and performing single-line inference on unseen passenger data.
-- **Call to Action:** Post on LinkedIn tagging **@Neurofive Solutions**!
-
----
-
-### Task 6 Walkthrough (2-3 mins):
-- Introduce yourself as a Data Scientist in the **Neurofive ML Track**.
-- Present the business problem: **Telecom Customer Churn (26.54% loss rate)**.
-- Show the **Decision Tree Feature Importances chart** ([`assets/churn_feature_importances.png`](assets/churn_feature_importances.png)) and explain the Top 3 drivers (`tenure`, `Fiber Optic`, `TotalCharges`).
-- Pitch your **4-5 sentence Executive Business Summary** to non-technical client stakeholders.
-- Post on LinkedIn tagging **@Neurofive Solutions**!
+- **Tagging:** Post on LinkedIn tagging **@Neurofive Solutions**!
